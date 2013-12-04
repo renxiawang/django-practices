@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>找人</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+  <body id="body">
+    <div class="container">
+    <!-- Search bar -->
+    <div class="container logo_banner">
+      <div class="row">
+        <div class="span2">
+          <a href="../"><img src="/img/logo-25.png" alt="logo.png"></a>
+        </div>  
+      
+      <div class="span5 offset5">
+      <form action="/search" method="post">{% csrf_token %}
+      <fieldset>
+        <input class="small_search_box" type="text" placeholder="输入一个人名、地名或……" name="keywords">
+        <button class="small_search_button"type="submit" class="btn"></button>
+      </fieldset>
+      </form>
+      </div>
+      </div>
+      <hr>
+    </div>
+
+    <div class="container span3">
+      <!-- Avatar and Network row-->
+      <!-- <div class="row center"> -->
+        <div class="avatar">
+          {% if avatar %}
+            <img src="{{ avatar }}">
+          {% else %}
+            <img src="/img/default_avatar.png">
+          {% endif %}
+        </div>
+      <!-- </div> -->
+
+      <!-- Experience -->
+      <!-- <div class="row"> -->
+        <div class="info_card">
+          <table class="table table-hover table-bordered">
+            <tbody>
+              {% for key, value in basic_info.items %}
+              <tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      <!-- </div> -->
+    </div>
+
+    <div class="container span8 resume_info">
+      <h3>简历</h3>
+      <hr>
+      <h4>工作经历</h4>
+      {% if work_exp %}
+      <table class="table table-bordered table-hover">
+            <thead>
+              <tr><th>时间</th><th>地址</th><th>公司</th><th>职位</th></tr>
+            </thead>
+            <tbody>
+              {% for one in work_exp %}
+              <tr><td>{{ one.period|default:"(N/A)" }}</td><td>{{ one.address|default:"(N/A)" }}</td><td>{{ one.organization|default:"(N/A)" }}</td><td>{{ one.position|default:"(N/A)"}}</td></tr>
+              {% endfor %}
+            </tbody>
+      </table>
+      {% else %}
+      <h4>(N/A)</h4>
+      {% endif %}
+
+      <h4>教育背景</h4>
+      {% if edu_exp %}
+      <table class="table table-bordered table-hover">
+            <thead>
+              <tr><th>时间</th><th>学校</th><th>专业</th><th>学位</th></tr>
+            </thead>            
+            <tbody>
+              {% for one in edu_exp %}
+                <tr><td>{{ one.period|default:"(N/A)" }}</td><td>{{ one.school|default:"(N/A)" }}</td><td>{{ one.major|default:"(N/A)" }}</td><td>{{ one.degree|default:"(N/A)" }}</td></tr>
+              {% endfor %}
+            </tbody>
+      </table>
+      {% else %}
+      <h4>(N/A)</h4>
+      {% endif %}
+
+
+      <h3>详细经历</h3>
+      <hr>
+      <!-- details -->
+      <div class="accordion" id="accordion2">
+        {% if descriptions %}
+          {% for desc in descriptions %}
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{ forloop.counter }}">
+                人物简介{{forloop.counter}}
+              </a>
+            </div>
+            <div id="collapse{{ forloop.counter }}" class="accordion-body collapse">
+              <div class="accordion-inner">
+                {{ desc.content }}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      <h3>数据来源</h3>
+      <hr>
+      <div class="data_sources">
+        <ul>
+          {% if data_source.baidu %}
+          <li><a href="{{ data_source.baidu }}">百度百科</a></li>
+          {% else %}
+          <li><a href="{{ data_source.hudong }}">互动百科</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+
+
+    </div>
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+  </body>
+</html>

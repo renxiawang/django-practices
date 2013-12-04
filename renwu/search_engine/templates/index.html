@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>找人</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+  <body id="body">
+  <div class="container">
+
+  <div class="container">
+    <div class="row">
+      <div class="center span2 logo">
+        <a href=""><img class="center" src="img/logo-17.png" alt="logo.png"></a>
+      </div>
+    </div>
+    <div class="">
+      <form action="/search" method="post">{% csrf_token %}
+        <fieldset>
+          <div class="row">
+          <div class="span4 center search_box">
+          <input type="text" placeholder="输入一个人名、地名或……" name="keywords">
+          </div>
+          </div>
+          <div class="row">
+          <div class="span2 center">
+          <button class="search_button center" type="submit" class="btn"></button>
+          </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+  </body>
+</html>

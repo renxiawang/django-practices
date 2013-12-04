@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>找人</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+  <body id="body">
+    <div class="container">
+    <div class="container logo_banner">
+      <div class="row">
+        <div class="span2">
+          <a href="../"><img src="img/logo-25.png" alt="logo.png"></a>
+        </div>  
+      
+      <div class="span5 offset5">
+      <form action="/search" method="post">{% csrf_token %}
+      <fieldset>
+        <input class="small_search_box" type="text" placeholder="输入一个人名、地名或……" name="keywords">
+        <button class="small_search_button"type="submit" class="btn"></button>
+      </fieldset>
+      </form>
+      </div>
+      </div>
+      <hr>
+    </div>
+    <div class="container">
+      <div class="keywords">
+        <p>搜索: {{ keywords }}</p>
+        <p>显示的是以下查询字词的结果: {{ segmented_keywords }}</p>
+      </div>
+    </div>
+    
+    <!-- Result List -->
+    {% if results %}
+    {% for person in results %}
+      <div class="container">
+        <div class="row result_item_basic_info">
+          <div class="span4"><a href="/person/{{ person.id }}">{{ person.name }}</a>  ({{ person.score }})</div>
+        </div>
+        <div class="row">
+          <div class="span12 result_item_description">
+          <p>{{ person.description }}</p>
+          </div>
+        </div>
+      </div>
+      <hr>
+      {% endfor %}
+      {% endif %}
+
+    </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+  </body>
+</html>

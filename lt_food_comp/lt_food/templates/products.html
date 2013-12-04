@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+{% include 'include/head.html' %}
+<body>
+<div class="container container-narrow">
+{% include 'include/header.html' %}
+{% include 'include/nav.html' %}
+
+<div class="container">
+    <div class="topbar">
+	<ul class="breadcrumb">
+     <li>
+     <a href="#">首页</a> <span class="divider">/</span>
+     </li>
+     <li>
+     <a href="#">产品展示</a> <span class="divider">/</span>
+     </li>
+    </ul>
+    </div>
+	
+	<div class="span3 leftbox">
+	    <ul class="nav nav-list bs-docs-sidenav affix-top">
+        <li class="nav-header menutitle">
+           产品展示
+        </li>
+        <li {% if selected == "all"%} class="active" {% endif %}>
+        <a href="../products/all"><i class="icon-chevron-right"></i>全部产品</a>
+        </li>
+        <li {% if selected == "recommend"%} class="active" {% endif %}>
+        <a href="../products/recommend"><i class="icon-chevron-right"></i>推荐产品</a>
+        </li>
+		<li {% if selected == "jujube"%} class="active" {% endif %}>
+        <a href="../products/jujube"><i class="icon-chevron-right"></i>枣系列</a>
+		</li>
+	    <li {% if selected == "plum"%} class="active" {% endif %}>
+        <a href="../products/plum"><i class="icon-chevron-right"></i>梅系列</a>	
+        </li>		
+        </ul>
+	</div>
+	<div class="span8 rightbox">
+    {% if products_list %}
+        {% for product in products_list %}
+	   <div class="products-box">
+	     <div class="span3 products-img">
+		 <img src="/product-imgs/{{ product.pic }}">
+		 </div>
+		 <div class="products-text">
+		 <ul>
+		 <li>编号：{{ product.id }}</li>
+		 <li>名称：{{ product.name }}</li>
+		 <li>简介：{{ product.abstract }}</li>
+		 <li>说明：{{ product.notice }}</li>
+		 <li>类别：{{ product.category }}</li>
+		 </ul>
+		 </div>
+	   </div>
+        {% endfor %}
+    {% else %}
+      <tr>
+        <td>no product exists</td>
+      </tr>
+    {% endif %}
+	</div>
+
+</div>
+ 
+{% include 'include/footer.html' %}
+
+</div>
+</body>
+</html>

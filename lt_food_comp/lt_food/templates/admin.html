@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'include/head.html' %}
+<script type="text/javascript">
+function modify_news(id, title, content) {
+  $('#news-id').val(id);
+  $('#modify-title').val(title);
+  $('#modify-content').val(content);
+  $('#modify-news').modal('show');
+}
+
+function modify_product(id, category, name, abstract, notice) {
+  $('#product-id').val(id);
+  $('#modify-product-category').val(category);
+  $('#modify-product-name').val(name);
+  $('#modify-product-abstract').val(abstract);
+  $('#modify-product-notice').val(notice);
+  $('#modify-product').modal('show');
+}
+
+</script>
+<body>
+<div class="container container-narrow">
+{% include 'include/header.html' %}
+<div class="container">
+<div class="leftboxes">
+{% include 'include/nav-admin.html' %}
+</div>
+<div class="rightboxes">
+<a href="/admin/logout">logout</a>
+{% if selected == "news" %}
+<button type="button" class="btn btn-primary" data-toggle="modal" href="#new-news">
+  添加新闻
+</button>
+
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+     <tr>
+      <th>新闻编号</th>
+      <th>新闻标题</th>
+      <th>内容</th>
+      <th>日期</th>
+      <th>发布者</th>
+      <th>操作</th>
+     </tr>
+    </thead>
+    <tbody>
+      {% if record_list %}
+        {% for news in record_list %}
+      <tr>
+        <td>{{ news.id }}</td>
+        <td>{{ news.title }}</td>
+        <td>{{ news.content }}</td>
+        <td>{{ news.date }}</td>
+        <td>{{ news.publisher }}</td>
+        <td>
+          <a class="btn btn-mini btn-info" href="#" onclick="modify_news('{{ news.id}}', '{{ news.title }}', '{{ news.content }}')">
+            <i class="icon-pencil icon-white"></i>修改
+          </a>
+          <a class="btn btn-mini btn-danger" href="/admin/del-news/{{ news.id}}">
+            <i class="icon-trash icon-white"></i>删除
+          </a>
+        </td>
+      </tr>
+        {% endfor %}
+      {% else %}
+      <tr>
+        <td>no news exists</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% if selected == "products" %}
+<button type="button" class="btn btn-primary" data-toggle="modal" href="#new-product">
+  添加产品
+</button>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+     <tr>
+      <th>编号</th>
+      <th>类别</th>
+    <th>名称</th>
+    <th>简介</th>
+    <th>注意事项</th>
+    <th>图片</th>
+    <th>发布者</th>
+    <th>操作</th>
+     </tr>
+    </thead>
+    <tbody>
+    {% if record_list %}
+        {% for product in record_list %}
+    <tr>
+      <td>{{ product.id }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.abstract }}</td>
+      <td>{{ product.notice }}</td>
+      <td>{{ product.pic }}</td>
+      <td>{{ product.publisher }}</td>
+      <td>
+          <a class="btn btn-mini btn-info" href="#" onclick="modify_product('{{product.id}}', '{{product.category}}', '{{product.name}}', '{{product.abstract}}', '{{product.notice}}')">
+            <i class="icon-pencil icon-white"></i>修改
+          </a>
+          <a class="btn btn-mini btn-danger" href="/admin/del-product/{{ product.id}}">
+            <i class="icon-trash icon-white"></i>删除
+          </a>
+        </td>
+     </tr>
+        {% endfor %}
+    {% else %}
+      <tr>
+        <td>no product exists</td>
+      </tr>
+    {% endif %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  {% if selected == "site" %}
+  <table class="table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>编号</th>
+        <th>类别</th>
+        <th>标题</th>
+        <th>内容</th>
+        <th>发布者</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if record_list %}
+        {% for site_info in record_list %}
+      <tr>
+        <td>{{ site_info.id }}</td>
+        <td>{{ site_info.category }}</td>
+        <td>{{ site_info.title }}</td>
+        <td>{{ site_info.content }}</td>
+        <td>{{ site_info.publisher }}</td>
+        <td>
+          <a class="btn btn-mini btn-info" href="#">
+            <i class="icon-pencil icon-white"></i>修改
+          </a>
+          <a class="btn btn-mini btn-danger" href="#">
+            <i class="icon-trash icon-white"></i>删除
+          </a>
+        </td>
+       </tr>
+        {% endfor %}
+      {% else %}
+      <tr>
+        <td>no siteInfo exists</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+  {% endif %}
+
+
+</div>
+</div>
+
+{% include 'include/footer.html' %}
+
+</div>
+
+{% if selected == "news" %}
+<div class="modal hide fade" id="new-news">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>添加新闻</h3>
+  </div>
+  <form class="form-horizontal" action="/admin/new-news" method="post">{% csrf_token %}
+    <fieldset>
+      <div class="control-group">
+        <label class="control-label" for="news-title">新闻标题</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="news-title" name="news-title">
+          </div>
+      </div>
+          
+      <div class="control-group">
+        <label class="control-label" for="news-content">新闻内容</label>
+        <div class="controls">
+          <textarea class="input-xlarge" id="news-content" rows="3" name="news-content"></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">保存</button>
+        <!-- <button class="btn">取消</button> -->
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div class="modal hide fade" id="modify-news">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>添加新闻</h3>
+  </div>
+  <form id="modify-news-form" class="form-horizontal" action="/admin/modify-news" method="post">{% csrf_token %}
+    <fieldset>
+      <input type="hidden" id="news-id" name="news-id">
+      <div class="control-group">
+        <label class="control-label" for="modify-title">新闻标题</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="modify-title" name="modify-title">
+          </div>
+      </div>
+          
+      <div class="control-group">
+        <label class="control-label" for="modify-content">新闻内容</label>
+        <div class="controls">
+          <textarea class="input-xlarge" id="modify-content" rows="3" name="modify-content"></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">保存</button>
+        <!-- <button class="btn">取消</button> -->
+      </div>
+    </fieldset>
+  </form>
+</div>
+{% endif %}
+
+{% if selected == "products" %}
+<div class="modal hide fade" id="new-product">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>添加产品</h3>
+  </div>
+  <form id="new-product-form" class="form-horizontal" action="/admin/new-product" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <fieldset>
+      <div class="control-group">
+        <label class="control-label" for="product-category">类别</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="product-category" name="product-category">
+          </div>
+      </div>
+          
+      <div class="control-group">
+        <label class="control-label" for="product-name">名称</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="product-name" name="product-name">
+          </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="product-abstract">简介</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="product-abstract" name="product-abstract">
+          </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="product-notice">注意事项</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="product-notice" name="product-notice">
+          </div>
+      </div>
+
+      <div class="control-group">
+            <label class="control-label" for="product-pic">上传框</label>
+            <div class="controls">
+              <input class="input-file" type="file" id="product-pic" name="product-pic">
+            </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">保存</button>
+        <!-- <button class="btn">取消</button> -->
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div class="modal hide fade" id="modify-product">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>添加产品</h3>
+  </div>
+  <form id="modify-product" class="form-horizontal" action="/admin/modify-product" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <fieldset>
+      <input type="hidden" id="product-id" name="product-id">
+      <div class="control-group">
+        <label class="control-label" for="modify-product-category">类别</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="modify-product-category" name="modify-product-category">
+          </div>
+      </div>
+          
+      <div class="control-group">
+        <label class="control-label" for="modify-product-name">名称</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="modify-product-name" name="modify-product-name">
+          </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="modify-product-abstract">简介</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="modify-product-abstract" name="modify-product-abstract">
+          </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="modify-product-notice">注意事项</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" id="modify-product-notice" name="modify-product-notice">
+          </div>
+      </div>
+
+      <div class="control-group">
+            <label class="control-label" for="modify-product-pic">上传框</label>
+            <div class="controls">
+              <input class="input-file" type="file" id="modify-product-pic" name="modify-product-pic">
+            </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">保存</button>
+        <!-- <button class="btn">取消</button> -->
+      </div>
+    </fieldset>
+  </form>
+</div>
+{% endif %}
+
+</body>
+</html>
+
+
+

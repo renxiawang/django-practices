@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'include/head.html' %}
+<body>
+<div class="container">
+      <p>{{ message }}</p>
+      <form class="form-signin" action="../admin/login" method="post">{% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input name="username" type="text" class="input-block-level" placeholder="User Name">
+        <input name="password" type="password" class="input-block-level" placeholder="Password">
+        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+      </form>
+</div>
+</body>
+</html>

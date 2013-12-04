@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+{% include 'include/head.html' %}
+<body>
+<div class="container container-narrow">
+{% include 'include/header.html' %}
+{% include 'include/nav.html' %}
+
+<div class="container ">
+  <div class="row show-grid ">
+     <div class="span6 leftbox ">
+	     <br>
+         <img src="img/002.jpg">
+     </div>
+
+  
+    <div class="span5 rightbox">
+	<div class="span5 righttopbox border">
+	     <div class="righttoplittle">
+	     <div id="myCarousel" class="carousel">
+           <!-- Carousel items -->
+         <div class="carousel-inner">
+            {% if recommend_products_list %}
+                {% for product in recommend_products_list %}
+         <div class="{% if forloop.counter == 1 %}active{% endif %} item">
+         <a href="../products/recommend">
+	     <img src="/product-imgs/{{ product.pic }}" width="260" height="195">
+         </a>
+	     </div>
+                {% endfor %}
+            {% endif %}
+         </div>
+          <!-- Carousel nav -->
+         <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+         <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+         </div>
+	     </div>
+	 </div> 
+	<div class="span5 rightbottombox border ">
+	<ul class="nav nav-list textposition-left">
+        <li class="nav-header menutitle">
+           新闻快递
+		   <div class="more-information">
+		     <a href="#">更多</a>
+		   </div>
+        </li>
+		
+        {% if latest_news_list %}
+            {% for news in latest_news_list %}
+    		<li>
+    		   <div class="news-date">
+    		     <!-- <a href="#">{{ news.date }}</a> -->
+                 <p>{{ news.date|date:"Y年m月d日" }}
+                 </p>
+    		   </div>
+    		   <div class="news-title">
+                 <a href="/news/{{ news.id }}/">{{ news.title }}</a>
+    		   </div>
+    		</li>
+            {% endfor %}
+        {% else %}
+            <li>
+               <div class="news-title">
+                 <a href="#">No news</a>
+               </div>
+            </li>
+        {% endif %}
+
+
+    </ul>
+	</div>
+    </div>   
+</div>
+</div>
+
+{% include 'include/footer.html' %}
+
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+{% include 'include/head.html' %}
+<body>
+<div class="container container-narrow">
+
+{% include 'include/header.html' %}
+{% include 'include/nav.html' %}
+
+<div class="container">
+    <div class="topbar">
+	<ul class="breadcrumb">
+     <li>
+     <a href="../index">首页</a> <span class="divider">/</span>
+     </li>
+     <li>
+     <a href="../about/">关于我们</a> <span class="divider">/</span>
+     </li>
+    </ul>
+    </div>
+	
+	<div class="span3 leftbox border">
+	    <div class="box">
+	    </div>
+	    <ul class="nav nav-list">
+		<div class="box">
+        <li class="nav-header menutitle">
+           关于我们
+        </li>
+		</div>
+		<div class="box">
+        <li class="active">
+        <a href="#">企业简介</a>
+        </li>
+		</div>
+		<div class="box">
+        <li>
+        <a href="#">经营范围</a>
+        </li>
+		</div>
+		<div class="box">
+        <a href="#">经营理念</a>
+	    <li>
+		</div>
+		<div class="box">
+        <a href="#">管理文化</a>	
+        </li>
+        </div>		
+        </ul>
+	</div>
+	<div class="span8 rightbox border-bottom">
+	    <div class="tabbable">
+            <ul class="nav nav-tabs">
+            <li {% if selected == "intro"%} class="active" {% endif %}><a href="#1" data-toggle="tab">企业简介</a></li>
+            <li {% if selected == "market_target"%} class="active" {% endif %}><a href="#2" data-toggle="tab">经营范围</a></li>
+            <li {% if selected == "mission"%} class="active" {% endif %}><a href="#3" data-toggle="tab">经营理念</a></li>
+            <li {% if selected == "culture"%} class="active" {% endif %} ><a href="#4" data-toggle="tab">管理文化</a></li>
+            </ul>
+        <div class="tab-content">
+        <div class="tab-pane active" id="1">
+            <p>{{ comp_intro.content }}</p>
+        </div>
+        <div class="tab-pane" id="2">
+            <p>{{ market_target.content }}</p>
+        </div>
+        <div class="tab-pane active" id="3">
+            <p>{{ mission.content }}</p>
+        </div>
+        <div class="tab-pane active" id="4">
+            <p>{{ culture.content }}</p>
+        </div>
+        </div>
+        </div>
+	</div>
+
+   
+
+</div>
+ 
+{% include 'include/footer.html' %}
+
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<ul class="nav nav-list textposition">
+    <li class="nav-header menutitle">信息管理</li>
+    <li {% if selected == "news"%} class="active" {% endif %}>
+        <a href="/admin/news">新闻</a>
+    </li>
+    <li {% if selected == "products"%} class="active" {% endif %}>
+        <a href="/admin/products">产品信息</a>
+    </li>
+    <li {% if selected == "site"%} class="active" {% endif %}>
+        <a href="/admin/site">站内信息</a>
+    </li>       
+</ul>

@@ -1,0 +1,36 @@
+<div class="container">
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+    <li class="{% if position == "index"%}active{% endif %}"  >
+    <a href="../index">首页</a></li> 
+    <li class="dropdown {% if position == "about"%}active{% endif %}">
+    <a href="../about/" class="dropdown-toggle" data-toggle="dropdown">关于我们 
+    <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="" id="comp_intro"><a href="../about/intro">企业简介</a></li>
+      <li class="" id="market_target"><a href="../about/market_target">经营范围</a></li>
+      <li class=""><a href="../about/mission">经营理念</a></li>
+      <li class=""><a href="../about/culture">管理文化</a></li>
+    </ul>
+  </li>
+  <li class="dropdown {% if position == "products"%}active{% endif %}">
+    <a href="../products/" class="dropdown-toggle" data-toggle="dropdown">产品展示
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li class=""><a href="../products/all">全部产品</a></li>
+      <li class=""><a href="../products/recommend">推荐产品</a></li>
+      <li class=""><a href="../products/jujube">枣系列</a></li>
+      <li class=""><a href="../products/plum">梅系列</a></li>
+    </ul>
+  </li>
+  <li class="{% if position == "index"%}active{% endif %}"><a href="../contact/">联系我们</a></li>
+</ul>
+   <form class="navbar-search pull-right" action="#">
+     <input type="text" class="search-query span2" placeholder="搜索" />
+   </form>
+</div>
+</div>
+</div>
